@@ -21,8 +21,10 @@ app.set('view engine', 'handlebars');
 
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(routes.grade);
 app.use(routes.index);
-
+app.use(routes.template);
+app.use(routes.user);
 
 app.listen(port, () => {
 	console.log(`Server running on ${port}`);

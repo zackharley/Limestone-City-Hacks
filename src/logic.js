@@ -128,9 +128,11 @@ var assignment = function (name, weight) {
 
 }
 
-parseGradesPage = function (gradesListing){
-
-   
+parseGradesPage = function (arr){
+    var ret = [];
+    for (i = 0; i < arr.length; i++)
+        ret[i] = arr[i].getUpdatedMarks; 
+    return ret;
 }
 
 
@@ -141,18 +143,15 @@ assignmentTest("Test #1");
 courseTest("TestCourse");
 var e = populatedExample();
 e.printMe();
-testInput();
 //*/
+testInput();
+
 function testInput(){
     var exGradeMsg = [{"_id":"58431b26c5126c3df898f350","owner":"Zack","name":"CMPE 320","__v":0,"assignments":[{"name":"Assignment 1","weight":0.5,"grade":82,"_id":"58431b26c5126c3df898f351"}]}]
     var exCourses = parseGradesPage(exGradeMsg);
     for (var i = 0; i < exCourses.length; i++)
         console.log(exCourses[i].printMe());
 }
-
-
-
-
 
 //Test Functions
 function populatedExample() {

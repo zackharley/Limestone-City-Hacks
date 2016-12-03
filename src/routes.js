@@ -1,4 +1,4 @@
-const index = require('./routes/index');
+const index = require('./routes/index.route.js');
 
 module.exports = {
 	index

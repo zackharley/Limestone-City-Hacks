@@ -8,7 +8,7 @@
     "copy": "cp -R src/controllers dist/controllers && cp -R src/models dist/models && cp -R src/routes dist/routes && cp -R src/views dist/views && cp src/server.js dist/server.js && cp src/routes.js dist/routes.js ",
     "build:scss": "node-sass src/public/scss/main.scss dist/public/css/main.css",
     "build": "npm run build:scss && npm run copy",
-    "start": "npm run build && node dist/server.js"
+    "start": "npm run clean && npm run build && node dist/server.js"
   },
   "repository": {
     "type": "git",

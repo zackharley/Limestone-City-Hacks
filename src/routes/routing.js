@@ -1,4 +1,4 @@
-const index = require('./index');
+const index = require('./index.route');
 
 // Add Passport routing - Zach
 

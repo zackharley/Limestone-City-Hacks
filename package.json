@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "clean": "rm -rf dist && mkdir dist",
-    "copy": "cp -R src/config dist/config && cp -R src/controllers dist/controllers && cp -R src/models dist/models && cp -R src/routes dist/routes && cp -R src/views dist/views && cp src/server.js dist/server.js && cp src/routes/routing.js dist/routes/routing.js && cp src/config/db.js dist/config/db.js",
+    "copy": "cp -R src/public/js dist/public/js && cp -R src/public/fonts dist/public/fonts && cp -R src/public/images dist/public/images && cp -R src/config dist/config && cp -R src/controllers dist/controllers && cp -R src/models dist/models && cp -R src/routes dist/routes && cp -R src/views dist/views && cp src/server.js dist/server.js && cp src/routes/routing.js dist/routes/routing.js && cp src/config/db.js dist/config/db.js",
     "build:scss": "node-sass src/public/scss/main.scss dist/public/css/main.css",
     "build": "npm run build:scss && npm run copy",
     "start": "npm run clean && npm run build && node dist/server.js"

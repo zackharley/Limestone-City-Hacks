@@ -3,9 +3,9 @@ const bodyParser = require('body-parser');
 const exphbs = require('express-handlebars');
 const path = require('path');
 const morgan = require('morgan');
-const routes = require('./routes');
+const routes = require('./routes/routing');
 const cors = require('./controllers/cors');
-const db = require('./db');
+const db = require('./config/db');
 
 const app = express();
 

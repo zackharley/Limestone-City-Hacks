@@ -22,18 +22,36 @@ var course = function (name) {
         console.log("Updating Marks")
         this.topPossibleMark = 100 - this.completedWeight + this.runAVG * this.completedWeight;
         var RA = 0;
+        var cwght = 0;
         var aLen = this.assignments.length
         for (i = 0; i < aLen; i++) {
             var a = assignments[i];
-            if (a.marked === true)
-                RA += a.getMark() * a.weight;
+            if (a.marked === true){
+                 RA += a.getMark() * a.weight;
+                 cwght += a.weight();
+
+            }
             console.log("Running AVG is " + RA);
         }
+        this.finalMark = RA;
+        this.runAVG = RA/cwght;
+        this.completedWeight = cwght;
+        this.topPossibleMark = 1 - cwght + this.runAVG*cwght; 
     }
     this.printMe = function () {
         msg = "Course name is" + this.name + '\n';
         msg += "There are " + this.numAssign.toString() + " assignments which total " + this.completedWeight.toString() + "% completed!";
+        for (i = 0; i < this.assignments.length; i++)
+            assignments[i].printMe();
         return msg;
+    }
+    this.getRunAVG = function() {
+        this.updateMarks();
+        return this.runAVG;
+    }
+    this.getFinalMark = function() {
+        this.updateMarks();
+        return this.runAVG;
     }
 }
 
@@ -89,9 +107,10 @@ var assignment = function (name, weight) {
 }
 function courseTest(name) {
     var c = new course(name);
-    c.printMe();
+    console.log(c.printMe());
     var a = new assignment("Exam #1", 0.50);
     c.addAssign(a);
+    a.setMark(85);
 }
 function assignmentTest(name) {
     asgmt = new assignment(name, 35); //should print error message

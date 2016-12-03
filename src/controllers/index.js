@@ -1,3 +1,3 @@
 module.exports = function indexController(req, res) {
-	res.send('Server time');
+	res.send('<h1>Server time</h1>');
 }

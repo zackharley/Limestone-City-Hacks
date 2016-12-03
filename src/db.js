@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
 
-const username = process.env.MONGO_USERNAME;
-const password = process.env.MONGO_PASSWORD;
-const host = process.env.MONGO_HOST;
-const database = process.env.MONGO_DATABASE;
+const username = 'root';
+const password = 'H5YMVSMt';
+const host = '104.198.244.47';
+const database = 'admin';
 const uri = `mongodb://${username}:${password}@${host}/${database}`;
 
 mongoose.connect(uri);

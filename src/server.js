@@ -9,9 +9,12 @@ const db = require('./config/db');
 const app = express();
 const port = process.env.PORT || 8000;
 
+require('.config/passport')(passport);
+
 app.set('views', __dirname + '/views');
 
 app.use(morgan('combined'));
+app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cors);
@@ -23,6 +26,15 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(routes.index);
 
+app.use(session({
+		secret: 'limestone-city-hacks-secret',
+		resave: true,
+		saveUninitialized: true
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+
+require('.routes/routing.js')(app, passport);
 
 app.listen(port, () => {
 	console.log(`Server running on ${port}`);

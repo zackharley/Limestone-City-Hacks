@@ -1,7 +1,7 @@
 var FacebookStrategy = require('passport-facebook').Strategy;
 
 // Load user model
-var User = require('/models/user');
+var User = require('./../models/user');
 
 // Load authentication variables
 var configAuth = require('./auth');

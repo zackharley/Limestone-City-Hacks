@@ -3,13 +3,16 @@ const bodyParser = require('body-parser');
 const exphbs = require('express-handlebars');
 const path = require('path');
 const morgan = require('morgan');
+const passport = require('passport');
+const cookieParser = require('cookie-parser');
+const session = require('express-session');
 const routes = require('./routes/routing');
 const cors = require('./controllers/cors');
 const db = require('./config/db');
 const app = express();
 const port = process.env.PORT || 8000;
 
-require('.config/passport')(passport);
+require('./config/passport')(passport);
 
 app.set('views', __dirname + '/views');
 
@@ -24,23 +27,20 @@ app.set('view engine', 'handlebars');
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(routes.grade);
-app.use(routes.index);
+app.use(session({
+	secret: 'limestone-city-hacks-secret',
+	resave: true,
+	saveUninitialized: true
+}));
+app.use(passport.initialize());
+app.use(passport.session());
 
+require('./routes/auth.route')(app, passport);
+
+app.use(routes.grade);
+// app.use(routes.index);
 app.use(routes.template);
 app.use(routes.user);
-
-
-// app.use(session({
-// 		secret: 'limestone-city-hacks-secret',
-// 		resave: true,
-// 		saveUninitialized: true
-// }));
-// app.use(passport.initialize());
-// app.use(passport.session());
-
-// require('.routes/routing.js')(app, passport);
-
 
 app.listen(port, () => {
 	console.log(`Server running on ${port}`);

@@ -3,64 +3,78 @@
 //var grades = rAVG;
 /** Blank Course Object **/
 var course = function (name) {
-    this.name = name;
-    this.numAssign = 0;
-    this.completedWeight = 0;
-    this.topPossibleMark = 0;
-    this.runAVG = 0;
-    this.finalMark = 0;
-    this.assignments = [];
+    //FUNCTIONS
     this.addAssign = function (assignment) {
         this.numAssign++;
+        this.assignments[this.assignments.length] = assignment;
         if (assignment.marked === true) {
-            this.completedWeight += assignment.percent;
+            completedWeight += assignment.percent;
             this.updateMarks();
-            this.assignments[this.assignments.length] = assignment;
         }
     }
     this.updateMarks = function () {
-        console.log("Updating Marks")
-        this.topPossibleMark = 100 - this.completedWeight + this.runAVG * this.completedWeight;
         var RA = 0;
         var cwght = 0;
         var aLen = this.assignments.length
-        for (i = 0; i < aLen; i++) {
-            var a = assignments[i];
+        for (var i = 0; i < aLen; i++) {
+            var a = this.assignments[i];
             if (a.marked === true){
                  RA += a.getMark() * a.weight;
-                 cwght += a.weight();
-
+                 cwght += a.weight;
             }
-            console.log("Running AVG is " + RA);
         }
-        this.finalMark = RA;
-        this.runAVG = RA/cwght;
-        this.completedWeight = cwght;
-        this.topPossibleMark = 1 - cwght + this.runAVG*cwght; 
+        finalMark = RA;
+        completedWeight = cwght;
+        topPossibleMark = 100 - (completedWeight * 100) + RA * completedWeight; 
+        if (cwght == 0)
+            runAVG = 0;
+        else
+            runAVG = RA/cwght;
+           
+            
+        
     }
     this.printMe = function () {
-        msg = "Course name is" + this.name + '\n';
-        msg += "There are " + this.numAssign.toString() + " assignments which total " + this.completedWeight.toString() + "% completed!";
-        for (i = 0; i < this.assignments.length; i++)
-            assignments[i].printMe();
+        this.updateMarks();
+        msg = "Course name is " + this.name + '\n';
+        msg += "There are " + this.numAssign.toString() + " assignments which total " + completedWeight.toString() + "% completed! \n";
+        msg += "Running Average is "+ runAVG.toString() + "%, Top Possible Mark is " + topPossibleMark.toString()+"%\n";
+        msg += "Current final Mark is " + finalMark.toString()+ "%!\n";
+        for (var i = 0; i < this.assignments.length; i++){
+            a = this.assignments[i];
+            msg += a.printMe()+'\n';
+        }        
         return msg;
     }
     this.getRunAVG = function() {
         this.updateMarks();
-        return this.runAVG;
+        return runAVG;
     }
     this.getFinalMark = function() {
         this.updateMarks();
-        return this.runAVG;
+        return finalMark;
     }
+    this.getTopPossMark = function() {
+        this.updateMarks();
+        return topPossibleMark;
+    }
+    this.getUpdatedMarks = function() {
+        this.updateMarks();
+        var ret = {runAVG, finalMark, topPossibleMark, completedWeight};
+        return ret;
+    }
+    //ATTRIBUTES//
+    this.name = name;
+    this.numAssign = 0;
+    this.assignments = [];
+    //These are declared private because updating an assignment won't automatically change their values'
+    var completedWeight = 0;
+    var topPossibleMark = 0;
+    var runAVG = 0;
+    var finalMark = 0;
 }
 
 var assignment = function (name, weight) {
-    //Initialization
-    this.name = name;
-    this.marked = false;
-    var mark = 0;
-
     //FUNCTIONS//
     this.setMark = function (mark) {
         this.marked = true;
@@ -93,17 +107,71 @@ var assignment = function (name, weight) {
         else
             console.log("Error: Weight not supplied as a Number!");
     }
-    this.setWeight(weight); //default instantiation...
 
     this.printMe = function () {
         var msg;
+        var wght=this.weight*100;
         if (this.marked === true)
-            msg = this.name + " has a mark of " + this.mark + "% and" + " is worth " + this.weight.toString() + "%";
+            msg = this.name + " has a mark of " + this.mark + "% and" + " is worth " + wght.toString() + "%";
         else
-            msg = this.name + " is unmarked and is worth " + this.weight.toString() + "%";
+            msg = this.name + " is unmarked and is worth " + wght.toString() + "%";
         return msg;
 
     }
+    
+     //Initialization
+    this.name = name;
+    this.marked = false;
+    var mark = 0;
+    this.setWeight(weight);
+
+
+}
+
+parseGradesPage = function (gradesListing){
+
+   
+}
+
+
+
+/////TESTING/////// Comment out Afterwards
+/*
+assignmentTest("Test #1");
+courseTest("TestCourse");
+var e = populatedExample();
+e.printMe();
+testInput();
+//*/
+function testInput(){
+    var exGradeMsg = [{"_id":"58431b26c5126c3df898f350","owner":"Zack","name":"CMPE 320","__v":0,"assignments":[{"name":"Assignment 1","weight":0.5,"grade":82,"_id":"58431b26c5126c3df898f351"}]}]
+    var exCourses = parseGradesPage(exGradeMsg);
+    for (var i = 0; i < exCourses.length; i++)
+        console.log(exCourses[i].printMe());
+}
+
+
+
+
+
+//Test Functions
+function populatedExample() {
+    var c = new course("CMPE 365");
+    var marks = [80,95,63,98,85];
+    for (var i = 1; i < 6; i++ ){
+        var a = new assignment("Quiz #"+i.toString(), 0.2);
+        a.setMark(marks[i]);
+    }
+    return c;
+}
+function partPopulatedExample() {
+    var marks = [80,-1,63,-1,-1];
+    var c = new course("CMPE 365");
+    for (var i = 1; i < 6; i++ )
+        var a = new assignment("Quiz #"+i.toString(), 0.2);
+        if (marks[i] > 0)
+            a.setMark(marks[i]);
+    return c;
 }
 function courseTest(name) {
     var c = new course(name);
@@ -111,6 +179,7 @@ function courseTest(name) {
     var a = new assignment("Exam #1", 0.50);
     c.addAssign(a);
     a.setMark(85);
+    console.log(c.printMe());
 }
 function assignmentTest(name) {
     asgmt = new assignment(name, 35); //should print error message
@@ -124,9 +193,3 @@ function assignmentTest(name) {
     asgmt.setMark(55);
     console.log(asgmt.printMe());
 }
-
-/////TESTING/////// Comment out Afterwards
-//*
-//assignmentTest("Test #1");
-courseTest("Test");
-//*/

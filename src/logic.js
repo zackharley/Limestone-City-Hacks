@@ -36,8 +36,9 @@ var course = function (name) {
     }
     this.printMe = function () {
         this.updateMarks();
+        var cWght = completedWeight*100;
         msg = "Course name is " + this.name + '\n';
-        msg += "There are " + this.numAssign.toString() + " assignments which total " + completedWeight.toString() + "% completed! \n";
+        msg += "There are " + this.numAssign.toString() + " assignments which total " + cWght.toString() + "% completed! \n";
         msg += "Running Average is "+ runAVG.toString() + "%, Top Possible Mark is " + topPossibleMark.toString()+"%\n";
         msg += "Current final Mark is " + finalMark.toString()+ "%!\n";
         for (var i = 0; i < this.assignments.length; i++){
@@ -130,8 +131,20 @@ var assignment = function (name, weight) {
 
 parseGradesPage = function (arr){
     var ret = [];
-    for (i = 0; i < arr.length; i++)
-        ret[i] = arr[i].getUpdatedMarks; 
+    for (i = 0; i < arr.length; i++){
+        var courseName=arr[i].name;
+        var c = new course(courseName);
+        for (j = 0; j < arr[i].assignments.length; j++){
+            var asgmt = arr[i].assignments[j];
+            var name = asgmt.name;
+            var wght = asgmt.weight;
+            var mark = asgmt.grade; 
+            var addMe = new assignment(name,wght);
+            addMe.setMark(mark);
+            c.addAssign(addMe);           
+        }
+        ret.push(c);
+    }
     return ret;
 }
 

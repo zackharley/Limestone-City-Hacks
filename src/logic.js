@@ -26,7 +26,7 @@ var course = function (name) {
         for (i = 0; i < aLen; i++) {
             var a = assignments[i];
             if (a.marked === true)
-                RA += a.getMark() / a.weight;
+                RA += a.getMark() * a.weight;
             console.log("Running AVG is " + RA);
         }
     }
@@ -40,14 +40,19 @@ var course = function (name) {
 var assignment = function (name, weight) {
     //Initialization
     this.name = name;
-    this.setWeight(weight);
     this.marked = false;
     var mark = 0;
 
     //FUNCTIONS//
     this.setMark = function (mark) {
         this.marked = true;
-        this.mark = mark;
+        if (typeof weight === 'number') {
+            if (mark >=0 && mark <=100)
+                this.mark = mark;
+            else console.log("Error: Mark must be between 0 and 100!")
+         }
+        else
+            console.log("Error: Mark not supplied as a Number!");
     }
     this.unMark = function () {
         this.marked = false;
@@ -59,17 +64,19 @@ var assignment = function (name, weight) {
         else return "No Mark!";
     }
     this.setWeight = function (weight) {
-        if (typeof weight !== 'number') {
+        if (typeof weight === 'number') {
             if (weight >= 0 && weight <= 1)
                 this.weight = weight;
             else {
-                console.log("Error: Incorrect Weight Supplied!!");
+                console.log("Error: Weight must be between 0 and 1!!");
                 this.weight = 0;
             }
         }
         else
             console.log("Error: Weight not supplied as a Number!");
     }
+    this.setWeight(weight); //default instantiation...
+
     this.printMe = function () {
         var msg;
         if (this.marked === true)
@@ -83,9 +90,8 @@ var assignment = function (name, weight) {
 function courseTest(name) {
     var c = new course(name);
     c.printMe();
-
-    //c.addAssign(asgmt);
-    //c.printMe();
+    var a = new assignment("Exam #1", 0.50);
+    c.addAssign(a);
 }
 function assignmentTest(name) {
     asgmt = new assignment(name, 35); //should print error message
@@ -100,8 +106,8 @@ function assignmentTest(name) {
     console.log(asgmt.printMe());
 }
 
-/////TESTING
-assignmentTest("Test #1");
+/////TESTING/////// Comment out Afterwards
+//*
+//assignmentTest("Test #1");
 courseTest("Test");
-
-
+//*/

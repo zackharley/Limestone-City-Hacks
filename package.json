@@ -5,10 +5,10 @@
   "main": "index.js",
   "scripts": {
     "clean": "rm -rf dist && mkdir dist",
-    "copy": "cp -R src/controllers dist/controllers && cp -R src/models dist/models && cp -R src/routes dist/routes && cp -R src/views dist/views && cp src/server.js dist/server.js && cp src/routes.js dist/routes.js ",
+    "copy": "cp -R src/controllers dist/controllers && cp -R src/models dist/models && cp -R src/routes dist/routes && cp -R src/views dist/views && cp src/server.js dist/server.js && cp src/routes.js dist/routes.js && cp src/db.js dist/db.js",
     "build:scss": "node-sass src/public/scss/main.scss dist/public/css/main.css",
     "build": "npm run build:scss && npm run copy",
-    "start": "npm run build && node dist/server.js"
+    "start": "npm run clean && npm run build && node dist/server.js"
   },
   "repository": {
     "type": "git",
@@ -24,6 +24,8 @@
     "body-parser": "^1.15.2",
     "express": "^4.14.0",
     "express-handlebars": "^3.0.0",
+    "mongoose": "^4.7.1",
+    "morgan": "^1.7.0",
     "node-sass": "^3.13.0"
   }
 }

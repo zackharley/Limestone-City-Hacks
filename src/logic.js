@@ -157,7 +157,7 @@ courseTest("TestCourse");
 var e = populatedExample();
 e.printMe();
 //*/
-testInput();
+// testInput();
 
 function testInput(){
     var exGradeMsg = [{"_id":"58431b26c5126c3df898f350","owner":"Zack","name":"CMPE 320","__v":0,"assignments":[{"name":"Assignment 1","weight":0.5,"grade":82,"_id":"58431b26c5126c3df898f351"}]}]
@@ -205,3 +205,5 @@ function assignmentTest(name) {
     asgmt.setMark(55);
     console.log(asgmt.printMe());
 }
+
+module.exports = parseGradesPage;

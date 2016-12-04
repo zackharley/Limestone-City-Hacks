@@ -11,6 +11,8 @@ const cors = require('./controllers/cors');
 const db = require('./config/db');
 const app = express();
 const port = process.env.PORT || 8000;
+const Grade = require('./models/grade');
+
 
 require('./config/passport')(passport);
 
@@ -27,6 +29,7 @@ app.set('view engine', 'handlebars');
 
 app.use(express.static(path.join(__dirname, 'public')));
 
+
 app.use(session({
 	secret: 'limestone-city-hacks-secret',
 	resave: true,
@@ -35,9 +38,19 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
+
 require('./routes/auth.route')(app, passport);
 
-app.use(routes.grade);
+app.post('/grades', (req, res) => {
+	const grade = new Grade(req.body);
+
+	grade.save().then(data => {
+		res.send(data);
+	}).catch(error => {
+		res.status(500).send(error);
+	});
+});
+// app.use(routes.grade);
 // app.use(routes.index);
 app.use(routes.template);
 app.use(routes.user);

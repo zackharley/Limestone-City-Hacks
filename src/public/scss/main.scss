@@ -1,6 +1,100 @@
 @charset "UTF-8";
 @import url("http://fonts.googleapis.com/css?family=Source+Sans+Pro:200");
 
+.courses-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+    div {
+
+    	.course-wrapper {
+    		    background-color: rgba(173, 173, 173, 0.48);
+			    margin: 20px;
+			    padding: 40px;
+			    border-radius: 4px;
+			    width: 400px;
+			    max-width: 400px;
+
+			    .course-title {
+			    	margin: 0px;
+			    	font-weight: 700;
+			    }
+
+			    .course-attribute {
+			    	margin: 0px;
+			    }
+
+			    .course-attribute-name {
+			    	font-weight: 600;
+			    }
+    	}
+    }
+
+}
+
+.overlay-wrapper {
+
+	width: 100vw;
+    position: fixed;
+    z-index: 100;
+    height: 100vh;
+    top: 0px;
+    background-color: rgba(0, 0, 0, 0.61);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+	.overlay-body {
+		width: 600px;
+		background-color: #594059;
+		padding: 30px;
+
+		table {
+			.number-input {
+				height: 2.75em;
+				border: 1px solid rgba(255, 255, 255, 0.247059);
+				border-radius: 4px;
+				background-color: rgba(255, 255, 255, 0.0745098);
+				padding: 0px;
+			}
+		}
+	}
+
+}
+
+.text-cell {
+	padding-top: 0px;
+}
+
+.overlay-buttons-wrapper {
+	display:flex;
+	flex-direction:row;
+}
+
+.overlay-add-assignment {
+	color:white;
+	background-color:#2b6dd8;
+}
+
+.overlay-add-assignment:hover {
+	background-color: #1c4380;
+}
+
+.overlay-save {
+	margin-left:auto;
+	color:white;
+	background-color:#4da733;
+}
+
+.overlay-save:hover {
+	background-color: #346c1a;
+}
+
+.overlay-close {
+	color:white;
+}
+
 /*
 	Visualize by TEMPLATED
 	templated.co @templatedco

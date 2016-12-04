@@ -1,3 +1,6 @@
+const Grade = require('./../models/grade');
+const parseCourses = require('./../logic');
+
 module.exports = function(app, passport) {
 
 // normal routes ===============================================================
@@ -9,9 +12,32 @@ module.exports = function(app, passport) {
 
     // PROFILE SECTION =========================
     app.get('/profile', isLoggedIn, function(req, res) {
-        res.render('home', {
-            user : req.user
+        Grade.find({owner: req.user.facebook.id}).then( courses => {
+            let columnOne = [];
+            let columnTwo = [];
+            let columnThree = [];
+            const courseStats = parseCourses(courses);
+            courses.forEach((course, index) => {
+                let marks = courseStats[index].getUpdatedMarks();
+                course.runAvg = marks.runAVG;
+                course.finalMark = marks.finalMark;
+                course.topPossibleMark = marks.topPossibleMark;
+                course.completedWeight = marks.completedWeight * 100;
+                if(index % 3 === 0) {
+                    columnOne.push(course);
+                } else if(index % 3 === 1) {
+                    columnTwo.push(course);
+                } else {
+                    columnThree.push(course);
+                }
+            });
+            res.render('home', {
+                columnOne,
+                columnTwo,
+                columnThree
+            });
         });
+        
     });
 
     // LOGOUT ==============================

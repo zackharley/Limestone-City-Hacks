@@ -3,8 +3,8 @@ const Grade = require('./../models/grade');
 module.exports = {
 	
 	getOne(req, res) {
-		console.log(req.params.grade);
-		Grade.find({_id: req.params.grade}).then((error, data) => {
+		console.log(req.params.id);
+		Grade.find({owner: req.params.id}).then((error, data) => {
 			res.send(error || data);
 		});
 	},
@@ -16,13 +16,16 @@ module.exports = {
 	},
 
 	add(req, res) {
-		const grade = new Grade(req.body);
+		console.log('Got request');
+		console.log(req.body);
+		res.end();
+		// const grade = new Grade(req.body);
 
-		grade.save().then(data => {
-			res.send(data);
-		}).catch(error => {
-			res.status(500).send(error);
-		});
+		// grade.save().then(data => {
+		// 	res.send(data);
+		// }).catch(error => {
+		// 	res.status(500).send(error);
+		// });
 	}
 
 }

@@ -2,44 +2,74 @@
 <!-- Main -->
 	<section id="main">
 
+		<section style="display:flex;justify-content:center;">
+			<button style="color:white;" id="overlay-button">Add Course</button>
+		</section>
 		<!-- Thumbnails -->
-			<section class="thumbnails">
-				<div>
-					<a href="images/fulls/01.jpg">
-						<h3>Lorem ipsum dolor sit amet</h3>
-						<img src="images/thumbs/01.jpg" alt="" />
-					</a>
-					<a href="images/fulls/02.jpg">
-						<h3>Lorem ipsum dolor sit amet</h3>
-						<img src="images/thumbs/02.jpg" alt="" />
-					</a>
+			<section class="courses-wrapper">
+				<div class="courses-column-1">
+					{{#each columnOne}}
+						<div class="course-wrapper">
+							<h2 class="course-title">{{this.name}}</h2>
+							<p class="course-attribute"><span class="course-attribute-name">Running Average:</span> {{this.runAvg}}%</p>
+							<p class="course-attribute"><span class="course-attribute-name">Final Mark:</span> {{this.finalMark}}%</p>
+							<p class="course-attribute"><span class="course-attribute-name">Top Possible Mark:</span> {{this.topPossibleMark}}%</p>
+							<p class="course-attribute"><span class="course-attribute-name">Completed Weight:</span> {{this.completedWeight}}%</p>
+						</div>
+					{{/each}}
 				</div>
-				<div>
-					<a href="images/fulls/03.jpg">
-						<h3>Lorem ipsum dolor sit amet</h3>
-						<p> Zach has concerns with the UI</p>
-						<!--<img src="images/thumbs/03.jpg" alt="" />-->
-					</a>
-					<a href="images/fulls/04.jpg">
-						<h3>Lorem ipsum dolor sit amet</h3>
-						<img src="images/thumbs/04.jpg" alt="" />
-					</a>
-					<a href="images/fulls/05.jpg">
-						<h3>Lorem ipsum dolor sit amet</h3>
-						<img src="images/thumbs/05.jpg" alt="" />
-					</a>
+				<div class="courses-column-2">
+					{{#each columnTwo}}
+						<div class="course-wrapper">
+							<h2 class="course-title">{{this.name}}</h2>
+							<p class="course-attribute"><span class="course-attribute-name">Running Average:</span> {{this.runAvg}}%</p>
+							<p class="course-attribute"><span class="course-attribute-name">Final Mark:</span> {{this.finalMark}}%</p>
+							<p class="course-attribute"><span class="course-attribute-name">Top Possible Mark:</span> {{this.topPossibleMark}}%</p>
+							<p class="course-attribute"><span class="course-attribute-name">Completed Weight:</span> {{this.completedWeight}}%</p>
+						</div>
+					{{/each}}
 				</div>
-				<div>
-					<a href="images/fulls/06.jpg">
-						<h3>Lorem ipsum dolor sit amet</h3>
-						<img src="images/thumbs/06.jpg" alt="" />
-					</a>
-					<a href="images/fulls/07.jpg">
-						<h3>Lorem ipsum dolor sit amet</h3>
-						<img src="images/thumbs/07.jpg" alt="" />
-					</a>
+				<div class="courses-column-3">
+					{{#each columnThree}}
+						<div class="course-wrapper">
+							<h2 class="course-title">{{this.name}}</h2>
+							<p class="course-attribute"><span class="course-attribute-name">Running Average:</span> {{this.runAvg}}%</p>
+							<p class="course-attribute"><span class="course-attribute-name">Final Mark:</span> {{this.finalMark}}%</p>
+							<p class="course-attribute"><span class="course-attribute-name">Top Possible Mark:</span> {{this.topPossibleMark}}%</p>
+							<p class="course-attribute"><span class="course-attribute-name">Completed Weight:</span> {{this.completedWeight}}%</p>
+						</div>
+					{{/each}}
 				</div>
 			</section>
+			<div style="display:none;" class="overlay-wrapper">
+				<div class="overlay-body">
+					<h3 style="font-weight:600;">Course Name</h3>
+					<input id="course-name" type="text">
+					<h3 style="font-weight:600;">Assignments</h3>
+	  				<table>
+	  					<thead>
+	  						<tr>
+	  							<th>Name</th>
+	  							<th>Weight</th>
+	  							<th>Grade</th>
+	  						</tr>
+	  					</thead>
+	  					<tbody>
+	  						<tr class="table-row">
+	  							<td class="text-cell"><input type="text"></td>
+	  							<td><input class="number-input" type="number"></td>
+	  							<td><input class="number-input" type="number"></td>
+	  						<tr>
+	  					</tbody>
+	  				</table>
+	  				<section class="overlay-buttons-wrapper">
+	  					<button class="overlay-add-assignment" id="add-assignment">Add Assignment</button>
+	  					<button class="overlay-close" id="delete-assignment">Delete Assignment</button>
+	  					<button class="overlay-save" id="save-course">Save</button>
+	  					<button class="overlay-close" id="close-overlay">Close</button>
+	  				</section>
+	  			</div>
+			</div>
 
 	</section>
 

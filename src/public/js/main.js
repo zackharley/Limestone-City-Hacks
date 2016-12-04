@@ -4,6 +4,56 @@
 	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
 */
 
+$('.course-wrapper').click(() => {
+	console.log('CLICKED');
+});
+
+$('#overlay-button').click(() => {
+	$('.overlay-wrapper').fadeIn(200);
+});
+
+$('#close-overlay').click(() => {
+	$('.overlay-wrapper').fadeOut(200);
+})
+
+$('#add-assignment').click(() => {
+	// $('.table-row').last()
+	$('.table-row').last().after(`
+		<tr class="table-row">
+			<td class="text-cell"><input type="text"></td>
+			<td><input class="number-input" type="number"></td>
+			<td><input class="number-input" type="number"></td>
+		<tr>
+	`)
+});
+
+$('#delete-assignment').click(() => {
+	$('.table-row').last().remove();
+});
+
+$('#save-course').click(() => {
+	// $.post('http://localhost:8000/grades')
+	$.ajax({
+		type: 'POST',
+		url: 'http://localhost:8000/grades', 
+		data: JSON.stringify({
+			owner: '10209193989860329',
+			name: $('#course-name').val(),
+			assignments: $('.table-row').map(row => {
+				return {
+					name: $('.table-row > td:first-child > input:first-child').val(),
+					weight: $('.table-row > td:nth-child(2) > input:first-child').val(),
+					grade: $('.table-row > td:nth-child(3) > input:first-child').val()
+				}
+			}),
+			success: (data) => {
+				console.log(data);
+			}
+		}),
+		dataType: 'json'
+	});
+});	
+
 $(function() {
 
 	// Vars.
